@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.py[cod]
+data/
+.env
+docs/
+shots/
+scripts/
+openspec/
+.dsh/
+.git/
+.gitignore
+README.md
+Dockerfile
+.dockerignore

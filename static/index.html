@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 招聘简历智能筛选助手</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧑‍💼</text></svg>" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">AI</div>
+      <div>
+        <h1>AI 招聘简历智能筛选助手</h1>
+        <p class="sub">JD 结构化 · 简历自动解析 · 大模型匹配 · 人工复核</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span id="modeBadge" class="badge badge-muted" title="AI 运行模式">检测中…</span>
+      <button id="seedBtn" class="btn btn-ghost" title="载入 samples 目录下的示例岗位与简历">载入示例数据</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="grid">
+      <!-- 步骤 1：岗位需求 -->
+      <article class="card">
+        <div class="card-head">
+          <h2><span class="step">1</span>岗位需求</h2>
+          <select id="jobSelect" class="select" title="切换已保存的岗位">
+            <option value="">＋ 新增岗位</option>
+          </select>
+        </div>
+
+        <div class="field-row">
+          <label class="field">
+            <span>岗位名称</span>
+            <input id="jobTitle" type="text" placeholder="如：高级 AI 应用工程师" />
+          </label>
+          <label class="field small">
+            <span>用人部门</span>
+            <input id="jobDept" type="text" placeholder="技术中心" />
+          </label>
+        </div>
+
+        <label class="field">
+          <span>岗位 JD（可从 BOSS 直聘直接粘贴）</span>
+          <textarea id="jdText" rows="8" placeholder="岗位职责：&#10;1. 负责……&#10;&#10;任职要求：&#10;1. 本科及以上学历，计算机相关专业；&#10;2. 3 年以上 Python 后端开发经验；&#10;3. 熟悉 FastAPI、PostgreSQL、Redis；"></textarea>
+        </label>
+
+        <div class="row-actions">
+          <button id="parseJdBtn" class="btn btn-secondary" type="button">✨ 自动解析岗位要求</button>
+          <span id="parseHint" class="hint"></span>
+        </div>
+
+        <div class="field-row">
+          <label class="field small">
+            <span>学历要求</span>
+            <select id="degree">
+              <option value="不限">不限</option>
+              <option value="大专">大专</option>
+              <option value="本科" selected>本科</option>
+              <option value="硕士">硕士</option>
+              <option value="博士">博士</option>
+            </select>
+          </label>
+          <label class="field small">
+            <span>最低相关经验（年）</span>
+            <input id="minYears" type="number" min="0" max="40" step="0.5" value="3" />
+          </label>
+        </div>
+
+        <div class="field">
+          <span>必备技能</span>
+          <div class="tags" id="requiredTags">
+            <input id="requiredInput" type="text" placeholder="输入后按回车，如 Python" />
+          </div>
+        </div>
+
+        <div class="field">
+          <span>加分项</span>
+          <div class="tags" id="niceTags">
+            <input id="niceInput" type="text" placeholder="输入后按回车，如 大模型" />
+          </div>
+        </div>
+
+        <button id="saveJobBtn" class="btn btn-primary block" type="button">保存岗位并继续</button>
+        <div style="text-align: center; margin-top: 10px">
+          <button id="deleteJobBtn" class="btn btn-ghost btn-sm danger-btn" type="button">删除当前岗位</button>
+        </div>
+      </article>
+
+      <!-- 步骤 2：简历上传 -->
+      <article class="card">
+        <div class="card-head">
+          <h2><span class="step">2</span>简历上传</h2>
+          <span id="resumeCount" class="hint">0 份</span>
+        </div>
+
+        <div id="dropzone" class="dropzone">
+          <div class="dz-icon">📄</div>
+          <p><strong>点击选择</strong> 或拖拽简历到此区域</p>
+          <p class="hint">支持 PDF / DOCX / TXT，单文件 ≤ 10MB，可批量上传</p>
+          <input id="fileInput" type="file" multiple accept=".pdf,.docx,.txt,.md" hidden />
+        </div>
+
+        <ul id="resumeList" class="file-list"></ul>
+        <div id="uploadMsg" class="hint"></div>
+
+        <button id="screenBtn" class="btn btn-primary block" type="button" disabled>开始 AI 筛选</button>
+        <p id="pendingHint" class="hint center" style="margin: 10px 0 0"></p>
+        <p class="hint center" style="margin: 6px 0 0">筛选结果按匹配度排序，支持导出 CSV 交给业务部门</p>
+      </article>
+    </section>
+
+    <!-- 步骤 3：结果 -->
+    <section class="card results-card">
+      <div class="card-head">
+        <h2><span class="step">3</span>筛选结果</h2>
+        <div class="toolbar">
+          <button id="rescreenBtn" class="btn btn-ghost btn-sm" type="button">重新筛选</button>
+          <button id="exportBtn" class="btn btn-secondary btn-sm" type="button">导出 CSV</button>
+        </div>
+      </div>
+
+      <div id="staleBanner" class="banner-warn" hidden>
+        <span id="staleText">岗位条件已更新，现有结果基于旧条件，人工标注会保留。</span>
+        <button id="staleScreenBtn" class="btn btn-secondary btn-sm" type="button">立即重新筛选</button>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat">
+          <span class="stat-label">简历总数</span>
+          <span class="stat-value" id="statTotal">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">建议进入复核</span>
+          <span class="stat-value green" id="statAdvance">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">暂缓考虑</span>
+          <span class="stat-value amber" id="statHold">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">已采纳</span>
+          <span class="stat-value green" id="statAccepted">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">已拒绝</span>
+          <span class="stat-value red" id="statRejected">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">平均匹配分</span>
+          <span class="stat-value" id="statAvg">0</span>
+        </div>
+      </div>
+
+      <div id="emptyState" class="empty">
+        保存岗位并上传简历后，点击「开始 AI 筛选」，结果会显示在这里。
+      </div>
+
+      <div class="list-toolbar">
+        <input id="searchInput" type="search" class="search-input" placeholder="搜索姓名 / 文件 / 技能 / 摘要" />
+        <select id="sortSelect" class="sort-select" title="排序方式">
+          <option value="score">匹配分 ↓</option>
+          <option value="score_asc">匹配分 ↑</option>
+          <option value="decision">已标注优先</option>
+          <option value="changed">有变化优先</option>
+        </select>
+        <label class="switch" title="只看重新筛选后分数或建议发生变化的候选人">
+          <input id="onlyChanged" type="checkbox" />
+          只看有变化
+        </label>
+        <div class="segmented" id="verdictFilter">
+          <button type="button" data-filter="all" class="active">全部</button>
+          <button type="button" data-filter="advance">建议复核</button>
+          <button type="button" data-filter="hold">暂缓考虑</button>
+        </div>
+        <span id="changeHint" class="hint"></span>
+      </div>
+
+      <div id="bulkBar" class="bulk-bar" hidden>
+        <span id="bulkCount">已选 0 项</span>
+        <button class="btn btn-secondary btn-sm" type="button" data-bulk="accepted">批量采纳</button>
+        <button class="btn btn-ghost btn-sm" type="button" data-bulk="rejected">批量拒绝</button>
+        <button class="btn btn-ghost btn-sm" type="button" data-bulk="clear">清除标注</button>
+        <button id="bulkCancel" class="btn btn-ghost btn-sm" type="button">取消选择</button>
+        <span class="hint">提示：在列表上按 A 采纳、R 拒绝、↑↓ 切换、Enter 查看详情</span>
+      </div>
+
+      <div class="table-wrap">
+        <table id="resultTable" class="table" hidden>
+          <thead>
+            <tr>
+              <th class="col-check"><input id="selectAll" type="checkbox" title="全选当前列表" /></th>
+              <th>候选人</th>
+              <th>匹配度</th>
+              <th>建议</th>
+              <th>人工决策</th>
+              <th>当前职位</th>
+              <th>学历 / 年限</th>
+              <th>符合 / 待确认</th>
+              <th>结论摘要</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="resultBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- 详情抽屉 -->
+  <div id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-backdrop" data-close></div>
+    <aside class="drawer-panel" role="dialog" aria-modal="true" aria-label="候选人详情">
+      <header class="drawer-head">
+        <div>
+          <h3 id="drawerName">候选人</h3>
+          <div class="meta" id="drawerMeta"></div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 14px">
+          <div class="drawer-score">
+            <span class="big" id="drawerScore">--</span>
+            <span class="unit">/ 100</span>
+          </div>
+          <button class="close-btn" type="button" data-close aria-label="关闭">✕</button>
+        </div>
+      </header>
+      <div class="drawer-body" id="drawerBody"></div>
+    </aside>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
