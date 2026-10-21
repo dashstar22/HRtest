@@ -1,13 +1,29 @@
 # Python
 .venv/
+venv/
+env/
 __pycache__/
 *.py[cod]
 
 # 运行时生成的数据库
 data/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.sqlite*-wal
+*.sqlite*-shm
+uploads/
+private/
+tmp/
+temp/
+*.tmp
 
 # 本地密钥
 .env
+.env.*
+!.env.example
 
 # 编辑器
 .vscode/
