@@ -22,12 +22,30 @@ def _read_pdf(data: bytes) -> str:
     import pdfplumber
 
     chunks: list[str] = []
+    page_count = 0
+    image_only_pages = 0
+
     with pdfplumber.open(io.BytesIO(data)) as pdf:
+        page_count = len(pdf.pages)
         for page in pdf.pages:
-            text = page.extract_text() or ""
-            if text.strip():
+            text = (page.extract_text() or "").strip()
+            if text:
                 chunks.append(text)
-    return "\n".join(chunks)
+            elif page.images:
+                # 这一页只有图片、没有文字层，典型的扫描件特征
+                image_only_pages += 1
+
+    text = "\n".join(chunks)
+    if len(text) >= 30:
+        return text
+
+    if image_only_pages:
+        raise ParseError(
+            f"这份 PDF 是扫描件：{image_only_pages}/{page_count} 页只有图片、没有文字层，"
+            "系统无法直接读取内容。请让候选人提供原始 Word 或文本版 PDF；"
+            "或先用 OCR 工具转换后再上传。"
+        )
+    raise ParseError("PDF 中没有可提取的文字，文件可能是空白或已损坏。")
 
 
 def _read_docx(data: bytes) -> str:

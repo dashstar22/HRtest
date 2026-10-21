@@ -274,6 +274,20 @@ def main() -> int:
                 )
             client.delete(f"/api/jobs/{pdf_job['id']}")
 
+        # 15.1 扫描件（图片型 PDF）应被识别并给出处理建议
+        scanned_path = ROOT / "samples" / "extra" / "resume_扫描件示例.pdf"
+        check("扫描件样例存在", scanned_path.exists(), str(scanned_path))
+        if scanned_path.exists():
+            scanned = client.post(
+                f"/api/jobs/{job_id}/resumes",
+                files=[("files", (scanned_path.name, scanned_path.read_bytes(), "application/pdf"))],
+            ).json()
+            check(
+                "扫描件被识别并给出处理建议",
+                scanned["uploaded"] == [] and "扫描件" in scanned["errors"][0]["message"],
+                scanned,
+            )
+
         # 16. 不支持的文件类型
         bad = client.post(
             f"/api/jobs/{job_id}/resumes",
