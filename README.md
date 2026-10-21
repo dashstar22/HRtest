@@ -53,7 +53,7 @@ Copy-Item .env.example .env
 
 打开 <http://127.0.0.1:8000>，点击右上角**「载入示例数据」**，即可看到 1 份示例 JD + 4 份简历的完整筛选结果。
 
-首次从 GitHub 获取项目可先执行 `git clone https://github.com/dashstar22/HRtest.git`，再 `cd HRtest`，按上面的手动命令启动。仓库为私有，需要仓库访问权限；源码上传不等于部署了在线网站。
+首次从 GitHub 获取项目可先执行 `git clone https://github.com/dashstar22/HRtest.git`，再 `cd HRtest`，按上面的手动命令启动。仓库已公开，无需邀请即可查看或克隆；源码上传不等于部署了在线网站。
 
 `.env.example` 的 Key 默认留空：无需购买或配置模型即可运行规则模式。若系统环境变量已有 `DEEPSEEK_API_KEY`，它优先于 `.env`；要体验无 Key 模式，可在当前 PowerShell 中先执行 `$env:DEEPSEEK_API_KEY=""`。真实 Key 只放在本地 `.env` 或环境变量，不要写进源码、命令截图或提交。数据库在首次启动时自动创建，仓库不携带本地演示库。
 
