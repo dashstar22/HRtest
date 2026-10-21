@@ -33,6 +33,7 @@ const els = {
   resultTable: $("resultTable"),
   resultBody: $("resultBody"),
   statTotal: $("statTotal"),
+  statScreened: $("statScreened"),
   statAdvance: $("statAdvance"),
   statHold: $("statHold"),
   statAccepted: $("statAccepted"),
@@ -163,7 +164,7 @@ async function loadStatus() {
     const status = await api("/api/status");
     if (status.mode === "deepseek") {
       els.modeBadge.className = "badge badge-blue";
-      els.modeBadge.textContent = `已连接 ${status.model}`;
+      els.modeBadge.textContent = `已配置 ${status.model}`;
       els.modeBadge.title = status.message;
     } else {
       els.modeBadge.className = "badge badge-amber";
@@ -409,6 +410,7 @@ async function refreshResumes() {
 }
 
 function renderResumes() {
+  els.statTotal.textContent = state.resumes.length;
   els.resumeCount.textContent = `${state.resumes.length} 份`;
   els.resumeList.innerHTML = state.resumes
     .map(
@@ -472,6 +474,8 @@ function setBusy(busy, label = "AI 分析中…") {
   els.seedBtn.disabled = busy;
   els.saveJobBtn.disabled = busy;
   els.parseJdBtn.disabled = busy;
+  // 筛选期间禁止删除简历 / 上传，避免结果写入时简历已不存在
+  document.body.classList.toggle("busy", busy);
   els.screenBtn.innerHTML = busy ? `<span class="spinner"></span>${escapeHtml(label)}` : "开始 AI 筛选";
   updateScreenButton();
 }
@@ -494,9 +498,10 @@ async function screen() {
       const verdictChanged = changed.filter(
         (item) => item.previous_verdict && item.previous_verdict !== item.verdict
       ).length;
+      const hasPrevious = state.results.some((item) => item.previous_score !== null && item.previous_score !== undefined);
       const suffix = changed.length
         ? `；${changed.length} 人结果有变化${verdictChanged ? `（${verdictChanged} 人建议变化）` : ""}`
-        : "；结果与上次一致";
+        : hasPrevious ? "；可对比结果与上次一致" : "；首次筛选，无上次结果";
       toast(`筛选完成：${report.succeeded} 份${suffix}`, "success");
     }
     if (report.mode && report.mode.includes("降级")) {
@@ -584,7 +589,8 @@ function renderResults() {
   const avg = total ? Math.round((state.results.reduce((sum, item) => sum + item.score, 0) / total) * 10) / 10 : 0;
   const staleCount = state.results.filter((item) => item.stale).length;
 
-  els.statTotal.textContent = total;
+  els.statTotal.textContent = state.resumes.length;
+  els.statScreened.textContent = total;
   els.statAdvance.textContent = advance;
   els.statHold.textContent = hold;
   els.statAccepted.textContent = accepted;
@@ -600,7 +606,9 @@ function renderResults() {
   els.changeHint.textContent = changedCount
     ? `${changedCount} 人与上次筛选不同`
     : total
-      ? "本轮结果与上次一致"
+      ? state.results.some((item) => item.previous_score !== null && item.previous_score !== undefined)
+        ? "可对比结果与上次一致"
+        : "首次筛选，无上次结果"
       : "";
 
   // 选中的结果如果被删除或换岗位，自动清理
@@ -823,6 +831,8 @@ function renderDrawer(result, rawText) {
         <div class="profile-item"><div class="k">评分来源</div><div class="v">${result.mode === "deepseek" ? "大模型" : result.mode === "rule-fallback" ? "规则兜底" : "规则引擎"}</div></div>
       </div>
       ${skills ? `<div class="tags" style="margin-top:10px;border-style:solid">${skills}</div>` : ""}
+      ${profile.experience_basis ? `<div class="hint" style="margin-top:10px">${escapeHtml(profile.experience_basis)}</div>` : '<div class="hint">历史结果未记录年限依据，建议重新筛选。</div>'}
+      ${(profile.review_warnings || []).map((warning) => `<div class="banner-warn">${escapeHtml(warning)}</div>`).join("")}
     </div>
 
     ${decisionSection(result)}
@@ -837,6 +847,8 @@ function renderDrawer(result, rawText) {
       result.matched,
       (item) => `<div class="item"><div class="req">✓ ${escapeHtml(item.requirement)}</div><div class="ev">${escapeHtml(item.evidence || "简历原文未提供证据")}</div></div>`
     )}
+
+    <p class="hint">${profile.evaluated_on ? "引用已完整定位到简历原文；原文存在不代表足以证明岗位要求，相关性与真实性仍需人工核实。" : "历史结果未执行新版完整引用校验，请重新筛选；以下引用需人工核对。"}</p>
 
     ${sectionList(
       `有待确认的条件（${result.uncertain.length}）`,

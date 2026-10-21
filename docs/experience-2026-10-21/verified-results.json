@@ -1,0 +1,520 @@
+{
+  "job": {
+    "title": "高级 AI 应用工程师",
+    "department": "智能应用中心",
+    "jd_text": "岗位名称：高级 AI 应用工程师\n用人部门：智能应用中心\n工作地点：上海 / 杭州\n薪资范围：35K-55K · 15 薪\n\n岗位职责：\n1. 负责公司 AI 应用产品的后端架构设计与核心功能开发；\n2. 基于大语言模型（LLM）搭建简历解析、智能问答、内容审核等业务链路；\n3. 设计并优化 RAG 检索增强方案，提升企业知识库问答的准确率；\n4. 与产品、算法团队协作，推动 AI 能力在招聘、客服等场景落地；\n5. 参与技术方案评审，指导初级工程师成长。\n\n任职要求：\n1. 本科及以上学历，计算机、软件工程或相关专业；\n2. 5 年以上后端开发经验，其中 2 年以上 Python 工程经验；\n3. 精通 Python，熟悉 FastAPI 或 Django 等主流 Web 框架；\n4. 熟悉 PostgreSQL / MySQL，具备 SQL 优化能力；\n5. 熟悉 Redis、消息队列，了解 Docker 与 Kubernetes；\n6. 有大模型应用开发经验（Prompt Engineering、RAG、Agent）者优先；\n7. 有向量数据库（Milvus / pgvector / FAISS）实践经验者优先；\n8. 具备良好的沟通能力与团队协作意识，能承担一定压力。",
+    "degree": "本科",
+    "min_years": 20.0,
+    "required_skills": [
+      "Python",
+      "FastAPI",
+      "Django",
+      "PostgreSQL",
+      "MySQL",
+      "SQL 优化",
+      "Redis",
+      "消息队列",
+      "Docker",
+      "Kubernetes"
+    ],
+    "nice_skills": [
+      "大模型应用开发",
+      "Prompt Engineering",
+      "RAG",
+      "Agent",
+      "向量数据库",
+      "Milvus",
+      "pgvector",
+      "FAISS"
+    ],
+    "id": "bb6cecd80643",
+    "created_at": "2026-10-21T20:42:03+08:00",
+    "resume_count": 5,
+    "screened_count": 5
+  },
+  "results": [
+    {
+      "id": "19414d1db094",
+      "job_id": "bb6cecd80643",
+      "resume_id": "eaca214fc435",
+      "resume_name": "张明远",
+      "file_name": "resume_张明远.docx",
+      "score": 58,
+      "verdict": "hold",
+      "summary": "技能与加分项高度匹配，但简历仅8年经验，远低于岗位要求的20年最低相关经验年限，硬性条件不满足。",
+      "matched": [
+        {
+          "requirement": "本科及以上学历",
+          "evidence": "2009.09 - 2013.06 华东师范大学 软件工程 本科"
+        },
+        {
+          "requirement": "精通 Python",
+          "evidence": "精通 Python，熟悉 FastAPI、Django、Flask"
+        },
+        {
+          "requirement": "熟悉 FastAPI 或 Django 等主流 Web 框架",
+          "evidence": "基于 FastAPI + PostgreSQL 搭建服务"
+        },
+        {
+          "requirement": "熟悉 PostgreSQL / MySQL",
+          "evidence": "熟悉 PostgreSQL、MySQL、Redis、Kafka"
+        },
+        {
+          "requirement": "具备 SQL 优化能力",
+          "evidence": "负责 MySQL 慢查询治理，核心接口 P99 从 800ms 降到 120ms"
+        },
+        {
+          "requirement": "熟悉 Redis、消息队列",
+          "evidence": "引入 Redis 缓存与 Kafka 消息队列，支撑大促流量"
+        },
+        {
+          "requirement": "了解 Docker 与 Kubernetes",
+          "evidence": "使用 Docker + Kubernetes 完成服务容器化与灰度发布"
+        },
+        {
+          "requirement": "大模型应用开发（Prompt Engineering、RAG、Agent）",
+          "evidence": "负责 Prompt Engineering 规范制定，沉淀 30+ 业务提示词模板"
+        },
+        {
+          "requirement": "向量数据库（Milvus / pgvector / FAISS）实践经验",
+          "evidence": "接入 Milvus 向量数据库，答案准确率从 61% 提升到 84%"
+        }
+      ],
+      "uncertain": [
+        {
+          "requirement": "最低相关经验年限 20.0 年",
+          "reason": "简历自述 8 年后端开发经验，工作经历起于 2016.07，推算约 8-9 年，与 20 年要求差距显著，属明确不满足而非无法确认"
+        }
+      ],
+      "strengths": [
+        "具备 RAG、Milvus、Prompt Engineering 等大模型应用落地经验，与岗位加分项高度契合",
+        "后端技术栈覆盖 Python、FastAPI、Django、PostgreSQL、MySQL、Redis、Kafka、Docker、Kubernetes，与必备技能基本全覆盖",
+        "有知识库问答产品与 SQL 优化、容器化发布的量化成果"
+      ],
+      "risks": [
+        "相关经验约 8 年，远低于岗位要求的 20 年最低相关经验年限，硬性条件不满足",
+        "简历未提及 Agent 的独立实践细节，仅列于技能清单",
+        "简历未体现指导初级工程师、技术方案评审等岗位职责中的管理协作经历"
+      ],
+      "profile": {
+        "current_title": "高级后端工程师",
+        "years_of_experience": 8.0,
+        "highest_degree": "硕士",
+        "key_skills": [
+          "Python",
+          "FastAPI",
+          "Django",
+          "PostgreSQL",
+          "MySQL",
+          "Redis",
+          "Kafka",
+          "Docker"
+        ]
+      },
+      "mode": "deepseek",
+      "created_at": "2026-10-21T20:45:12+08:00",
+      "decision": "accepted",
+      "decision_at": "2026-10-21T20:43:19+08:00",
+      "decision_score": 88,
+      "decision_note": "体验验证：确认 Python 项目职责后安排沟通。",
+      "previous_score": 88,
+      "previous_verdict": "advance",
+      "stale": false
+    },
+    {
+      "id": "3993a9d911cc",
+      "job_id": "bb6cecd80643",
+      "resume_id": "f0b040d8e6c1",
+      "resume_name": "李思颖",
+      "file_name": "resume_李思颖.txt",
+      "score": 52,
+      "verdict": "hold",
+      "summary": "本科学历符合，但相关经验约6年未达9年要求，且缺少FastAPI/Django、消息队列、Kubernetes及大模型应用经验",
+      "matched": [
+        {
+          "requirement": "本科及以上学历",
+          "evidence": "浙江工业大学 信息管理与信息系统 本科"
+        },
+        {
+          "requirement": "Python 工程经验",
+          "evidence": "熟练使用 Python、Flask、MySQL、Redis、Docker、Jenkins、Pandas、Git"
+        },
+        {
+          "requirement": "熟悉 MySQL",
+          "evidence": "技术栈为 Python + Flask + MySQL + Redis"
+        },
+        {
+          "requirement": "熟悉 Redis",
+          "evidence": "技术栈为 Python + Flask + MySQL + Redis"
+        },
+        {
+          "requirement": "了解 Docker",
+          "evidence": "使用 Docker 部署，Jenkins 完成 CI/CD 流水线"
+        }
+      ],
+      "uncertain": [
+        {
+          "requirement": "最低相关经验年限 9.0 年",
+          "reason": "简历自述6年软件开发经验，按工作经历推算约6年，未达9年"
+        },
+        {
+          "requirement": "FastAPI 或 Django 框架",
+          "reason": "简历仅提及 Flask，未提及 FastAPI 或 Django"
+        },
+        {
+          "requirement": "消息队列",
+          "reason": "简历未提及消息队列相关经验"
+        },
+        {
+          "requirement": "Kubernetes",
+          "reason": "简历未提及 Kubernetes，仅提及 Docker"
+        },
+        {
+          "requirement": "PostgreSQL",
+          "reason": "描述模糊无法量化，仅写“了解 PostgreSQL 基本使用与索引优化”"
+        },
+        {
+          "requirement": "SQL 优化能力",
+          "reason": "描述模糊无法量化，仅提及“索引优化”了解层面"
+        },
+        {
+          "requirement": "大模型应用开发（Prompt Engineering、RAG、Agent）",
+          "reason": "简历未提及线上项目经验，仅写“正在自学大模型应用开发，尚未有线上项目经验”"
+        },
+        {
+          "requirement": "向量数据库（Milvus / pgvector / FAISS）",
+          "reason": "简历未提及向量数据库相关实践"
+        }
+      ],
+      "strengths": [
+        "具备 Python 后端开发与 MySQL、Redis、Docker 实际项目经验",
+        "有服务拆分与 CI/CD 流水线搭建经验",
+        "沟通主动，明确表达希望在 AI 应用方向长期发展"
+      ],
+      "risks": [
+        "相关经验约6年，明显低于岗位要求的9年",
+        "缺少 FastAPI/Django、消息队列、Kubernetes 等必备技能证据",
+        "无大模型应用与向量数据库线上实践经验，AI 方向尚处自学阶段"
+      ],
+      "profile": {
+        "current_title": "Python 开发工程师",
+        "years_of_experience": 6.0,
+        "highest_degree": "本科",
+        "key_skills": [
+          "Python",
+          "Flask",
+          "MySQL",
+          "Redis",
+          "Docker",
+          "Jenkins",
+          "Pandas",
+          "Git"
+        ]
+      },
+      "mode": "deepseek",
+      "created_at": "2026-10-21T20:44:23+08:00",
+      "decision": null,
+      "decision_at": null,
+      "decision_score": null,
+      "decision_note": null,
+      "previous_score": 58,
+      "previous_verdict": "hold",
+      "stale": true
+    },
+    {
+      "id": "b4f49f59c745",
+      "job_id": "bb6cecd80643",
+      "resume_id": "ecd83ff76e56",
+      "resume_name": "赵磊",
+      "file_name": "resume_赵磊.pdf",
+      "score": 45,
+      "verdict": "hold",
+      "summary": "后端经验约5年，未达9年要求；技术栈以Flask为主，缺少FastAPI/Django、消息队列及大模型相关经验，方向匹配度有限。",
+      "matched": [
+        {
+          "requirement": "学历本科及以上",
+          "evidence": "2014.09 - 2018.06 深圳大学 软件工程 本科"
+        },
+        {
+          "requirement": "精通Python",
+          "evidence": "熟练 Python、Flask、MySQL、Redis、Docker、Pandas"
+        },
+        {
+          "requirement": "熟悉MySQL",
+          "evidence": "技术栈 Python + Flask + MySQL + Redis"
+        },
+        {
+          "requirement": "熟悉Redis",
+          "evidence": "技术栈 Python + Flask + MySQL + Redis"
+        },
+        {
+          "requirement": "了解Docker与Kubernetes",
+          "evidence": "使用 Docker 部署服务，GitLab CI 完成自动化发布"
+        },
+        {
+          "requirement": "了解Kubernetes",
+          "evidence": "了解 Kubernetes 基本概念"
+        }
+      ],
+      "uncertain": [
+        {
+          "requirement": "最低相关经验年限9.0年",
+          "reason": "简历推算后端经验约5年（2018.07至今），与9年要求差距明显，属硬性不满足"
+        },
+        {
+          "requirement": "FastAPI或Django框架",
+          "reason": "简历未提及FastAPI或Django，仅提及Flask"
+        },
+        {
+          "requirement": "PostgreSQL",
+          "reason": "简历未提及PostgreSQL，仅提及MySQL"
+        },
+        {
+          "requirement": "SQL优化能力",
+          "reason": "简历未提及SQL优化相关描述，无法确认"
+        },
+        {
+          "requirement": "消息队列",
+          "reason": "简历未提及消息队列相关技能或使用经历"
+        },
+        {
+          "requirement": "大模型应用开发（Prompt Engineering、RAG、Agent）",
+          "reason": "简历仅写“正在学习大模型应用开发”，无实际项目经验"
+        },
+        {
+          "requirement": "向量数据库（Milvus/pgvector/FAISS）",
+          "reason": "简历未提及任何向量数据库相关经验"
+        }
+      ],
+      "strengths": [
+        "具备Python后端开发与数据处理经验，熟悉MySQL、Redis、Docker等基础技术栈",
+        "有Docker部署与GitLab CI自动化发布的工程实践"
+      ],
+      "risks": [
+        "相关经验约5年，远低于岗位要求的9年",
+        "缺少FastAPI/Django、PostgreSQL、消息队列等必备技能",
+        "无大模型应用开发与向量数据库实践经验，与AI应用方向差距较大"
+      ],
+      "profile": {
+        "current_title": "Python 开发工程师",
+        "years_of_experience": 5.0,
+        "highest_degree": "本科",
+        "key_skills": [
+          "Python",
+          "Flask",
+          "MySQL",
+          "Redis",
+          "Docker",
+          "Pandas",
+          "GitLab CI",
+          "Kubernetes"
+        ]
+      },
+      "mode": "deepseek",
+      "created_at": "2026-10-21T20:44:27+08:00",
+      "decision": null,
+      "decision_at": null,
+      "decision_score": null,
+      "decision_note": null,
+      "previous_score": null,
+      "previous_verdict": null,
+      "stale": true
+    },
+    {
+      "id": "f9df7e72d1f7",
+      "job_id": "bb6cecd80643",
+      "resume_id": "735ddbabb8c3",
+      "resume_name": "陈静",
+      "file_name": "resume_陈静.txt",
+      "score": 42,
+      "verdict": "hold",
+      "summary": "后端经验丰富但以Java为主，Python仅约1年且无大模型/RAG经验，多项必备技能缺失",
+      "matched": [
+        {
+          "requirement": "学历本科及以上",
+          "evidence": "2012.09 - 2015.06 北京邮电大学 软件工程 硕士"
+        },
+        {
+          "requirement": "熟悉 Redis",
+          "evidence": "使用 Redis 构建分布式缓存，支撑日终批量任务"
+        },
+        {
+          "requirement": "了解 Docker 与 Kubernetes",
+          "evidence": "使用 Docker 与 Kubernetes 完成容器化部署"
+        },
+        {
+          "requirement": "熟悉 MySQL",
+          "evidence": "技术栈为 Spring Boot + MySQL"
+        }
+      ],
+      "uncertain": [
+        {
+          "requirement": "Python 工程经验（2 年以上）",
+          "reason": "描述模糊无法量化：简历称“累计约 1 年”，且为脚本用途，不足 2 年"
+        },
+        {
+          "requirement": "FastAPI 或 Django",
+          "reason": "简历未提及"
+        },
+        {
+          "requirement": "PostgreSQL",
+          "reason": "简历未提及"
+        },
+        {
+          "requirement": "SQL 优化能力",
+          "reason": "简历未提及具体 SQL 优化实践"
+        },
+        {
+          "requirement": "消息队列",
+          "reason": "简历未提及"
+        },
+        {
+          "requirement": "大模型应用开发（Prompt Engineering、RAG、Agent）",
+          "reason": "简历明确写“未接触过大模型应用开发，也无 RAG 相关经验”"
+        },
+        {
+          "requirement": "向量数据库（Milvus / pgvector / FAISS）",
+          "reason": "简历未提及"
+        }
+      ],
+      "strengths": [
+        "10 年后端开发经验，具备金融级系统稳定性实践",
+        "有 Docker、Kubernetes 容器化上云与 Redis 缓存实战经验"
+      ],
+      "risks": [
+        "Python 经验仅约 1 年且为脚本级别，不满足 2 年以上 Python 工程要求",
+        "无大模型、RAG、Agent 及向量数据库经验，与 AI 应用方向明显不符",
+        "技术栈以 Java 为主，FastAPI/Django、PostgreSQL、消息队列均未体现"
+      ],
+      "profile": {
+        "current_title": "高级开发工程师",
+        "years_of_experience": 10.0,
+        "highest_degree": "硕士",
+        "key_skills": [
+          "Java",
+          "Spring Boot",
+          "MySQL",
+          "Redis",
+          "Docker",
+          "Kubernetes",
+          "Python"
+        ]
+      },
+      "mode": "deepseek",
+      "created_at": "2026-10-21T20:44:26+08:00",
+      "decision": null,
+      "decision_at": null,
+      "decision_score": null,
+      "decision_note": null,
+      "previous_score": 45,
+      "previous_verdict": "hold",
+      "stale": true
+    },
+    {
+      "id": "fed14cc3777f",
+      "job_id": "bb6cecd80643",
+      "resume_id": "3bdffdd892f0",
+      "resume_name": "王浩",
+      "file_name": "resume_王浩.docx",
+      "score": 25,
+      "verdict": "hold",
+      "summary": "大专学历、3年前端经验，与岗位要求的本科学历、9年经验及Python后端方向明显不符。",
+      "matched": [
+        {
+          "requirement": "Redis",
+          "evidence": "配合 Redis 做库存扣减"
+        }
+      ],
+      "uncertain": [
+        {
+          "requirement": "Python",
+          "reason": "简历未提及该项技能"
+        },
+        {
+          "requirement": "FastAPI",
+          "reason": "简历未提及该项技能"
+        },
+        {
+          "requirement": "Django",
+          "reason": "简历未提及该项技能"
+        },
+        {
+          "requirement": "PostgreSQL",
+          "reason": "简历未提及该项技能"
+        },
+        {
+          "requirement": "MySQL",
+          "reason": "简历未提及该项技能"
+        },
+        {
+          "requirement": "SQL 优化",
+          "reason": "简历未提及该项技能"
+        },
+        {
+          "requirement": "消息队列",
+          "reason": "简历未提及该项技能"
+        },
+        {
+          "requirement": "Docker",
+          "reason": "简历未提及该项技能"
+        },
+        {
+          "requirement": "Kubernetes",
+          "reason": "简历未提及该项技能"
+        },
+        {
+          "requirement": "大模型应用开发",
+          "reason": "简历未提及该项技能"
+        },
+        {
+          "requirement": "Prompt Engineering",
+          "reason": "简历未提及该项技能"
+        },
+        {
+          "requirement": "RAG",
+          "reason": "简历未提及该项技能"
+        },
+        {
+          "requirement": "Agent",
+          "reason": "简历未提及该项技能"
+        },
+        {
+          "requirement": "向量数据库（Milvus / pgvector / FAISS）",
+          "reason": "简历未提及该项技能"
+        }
+      ],
+      "strengths": [
+        "有 Node.js 编写接口的实践经验"
+      ],
+      "risks": [
+        "学历为大专，不满足本科及以上硬性要求",
+        "相关经验约3年，远低于9年要求",
+        "技术方向为前端，缺乏 Python 后端及 AI 应用开发经验"
+      ],
+      "profile": {
+        "current_title": "前端开发工程师",
+        "years_of_experience": 3.0,
+        "highest_degree": "大专",
+        "key_skills": [
+          "Vue",
+          "TypeScript",
+          "JavaScript",
+          "Node.js",
+          "Express",
+          "Redis",
+          "HTML",
+          "CSS"
+        ]
+      },
+      "mode": "deepseek",
+      "created_at": "2026-10-21T20:44:23+08:00",
+      "decision": null,
+      "decision_at": null,
+      "decision_score": null,
+      "decision_note": null,
+      "previous_score": 25,
+      "previous_verdict": "hold",
+      "stale": true
+    }
+  ]
+}

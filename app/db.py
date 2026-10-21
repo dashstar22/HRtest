@@ -419,7 +419,8 @@ def stats(job_id: str) -> dict:
         and (r["previous_score"] != r["score"] or r["previous_verdict"] != r["verdict"])
     )
     return {
-        "total": total,
+        "total": len(list_resumes(job_id)),
+        "screened": total,
         "advance": advance,
         "hold": total - advance,
         "avg_score": average,

@@ -1,0 +1,26 @@
+D:\code\ai_study\HRtest\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  from starlette.testclient import TestClient as TestClient  # noqa
+test_ci_cd_is_not_an_or_group (__main__.CredibilityTests.test_ci_cd_is_not_an_or_group) ... ok
+test_education_dates_do_not_count (__main__.CredibilityTests.test_education_dates_do_not_count) ... ok
+test_fabricated_suffix_rejected (__main__.CredibilityTests.test_fabricated_suffix_rejected) ... ok
+test_group_does_not_override_saved_conditions (__main__.CredibilityTests.test_group_does_not_override_saved_conditions) ... ok
+test_hard_uncertainty_cannot_keep_high_score (__main__.CredibilityTests.test_hard_uncertainty_cannot_keep_high_score) ... ok
+test_http_persistence_priority_stats_and_rescreen (__main__.CredibilityTests.test_http_persistence_priority_stats_and_rescreen) ... ok
+test_located_quote_restores_original (__main__.CredibilityTests.test_located_quote_restores_original) ... ok
+test_low_score_cannot_advance (__main__.CredibilityTests.test_low_score_cannot_advance) ... ok
+test_mock_jd_parser_preserves_or (__main__.CredibilityTests.test_mock_jd_parser_preserves_or) ... ok
+test_model_years_cannot_override_conflict (__main__.CredibilityTests.test_model_years_cannot_override_conflict) ... ok
+test_negative_and_unknown_verdicts (__main__.CredibilityTests.test_negative_and_unknown_verdicts) ... ok
+test_negative_low_score_rewrites_conflicting_summary (__main__.CredibilityTests.test_negative_low_score_rewrites_conflicting_summary) ... ok
+test_or_neither_member_is_uncertain (__main__.CredibilityTests.test_or_neither_member_is_uncertain) ... ok
+test_overlapping_jobs_are_not_double_counted (__main__.CredibilityTests.test_overlapping_jobs_are_not_double_counted) ... ok
+test_punctuation_cannot_invert_quote (__main__.CredibilityTests.test_punctuation_cannot_invert_quote) ... ok
+test_rule_or_requires_only_one_member (__main__.CredibilityTests.test_rule_or_requires_only_one_member) ... ok
+test_rule_parsing_preserves_groups_and_bonus (__main__.CredibilityTests.test_rule_parsing_preserves_groups_and_bonus) ... ok
+test_stated_and_dates_conflict (__main__.CredibilityTests.test_stated_and_dates_conflict) ... ok
+test_unknown_years_and_degree_cannot_advance (__main__.CredibilityTests.test_unknown_years_and_degree_cannot_advance) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.193s
+
+OK

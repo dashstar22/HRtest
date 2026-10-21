@@ -1,0 +1,61 @@
+D:\code\ai_study\HRtest\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  from starlette.testclient import TestClient as TestClient  # noqa
+[PASS] 状态接口为规则模式
+[PASS] 首页可访问
+  parsed jd: {"title": "高级 AI 应用工程师", "department": "智能应用中心", "degree": "本科", "min_years": 5.0, "required_skills": ["python", "FastAPI 或 Django", "sql", "PostgreSQL 或 MySQL", "redis", "docker", "kubernetes"], "nice_skills": ["大模型", "rag", "prompt engineering", "向量数据库"]}
+[PASS] JD 识别学历为本科
+[PASS] JD 识别年限为 5
+[PASS] JD 识别必备技能
+[PASS] 创建岗位
+  uploaded: {"uploaded": [{"id": "77ac76169b2d", "name": "张明远", "file_name": "resume_张明远.docx", "char_count": 757}, {"id": "476526968839", "name": "李思颖", "file_name": "resume_李思颖.txt", "char_count": 596}, {"id": "e04b689792e6", "name": "王浩", "file_name": "resume_王浩.docx", "char_count": 367}, {"id": "f33aebe765c0", "name": "陈静", "file_name": "resume_陈静.txt", "char_count": 572}], "errors": []}
+[PASS] 上传并解析 4 份简历
+[PASS] 上传无错误
+[PASS] 筛选全部成功
+[PASS] 返回 4 条结果
+[PASS] 结果按分数降序
+  张明远     74 分  hold     硕士/None年  matched=8 uncertain=1
+        规则初筛得分 74 分：存在 1 类硬性条件不足或待确认，建议暂缓并核实。
+  陈静      74 分  hold     硕士/None年  matched=7 uncertain=2
+        规则初筛得分 74 分：存在 2 类硬性条件不足或待确认，建议暂缓并核实。
+  李思颖     71 分  hold     本科/None年  matched=6 uncertain=3
+        规则初筛得分 71 分：存在 2 类硬性条件不足或待确认，建议暂缓并核实。
+  王浩      27 分  hold     大专/None年  matched=1 uncertain=7
+        规则初筛得分 27 分：存在 3 类硬性条件不足或待确认，建议暂缓并核实。
+[PASS] 结果详情可访问
+[PASS] 简历原文可读取
+[PASS] 统计口径一致
+[PASS] CSV 导出成功
+[PASS] CSV 包含人工决策列
+[PASS] 示例数据接口可用
+[PASS] 标注并保存备注
+[PASS] 记录标注时分数
+[PASS] 快捷标注不清空备注
+[PASS] 统计包含采纳数
+[PASS] 批量标注生效
+[PASS] 统计反映批量结果
+[PASS] 批量标注不跨岗位生效
+[PASS] 修改岗位条件
+[PASS] 改 JD 后结果标记为过期
+[PASS] 改 JD 后人工标注保留
+[PASS] 重新筛选成功
+[PASS] 重新筛选后过期标记清除
+[PASS] 重新筛选后结果 id 保持稳定
+[PASS] 重新筛选后人工标注保留
+[PASS] 重新筛选后备注保留
+[PASS] 重新筛选后仍保留标注时分数
+[PASS] 重新筛选后记录上次分数
+[PASS] 统计能反映变化人数
+[PASS] 重复简历被拦截
+[PASS] 撤销标注
+[PASS] 撤销后备注一并清空
+[PASS] PDF 样例存在
+[PASS] PDF 简历可解析
+[PASS] PDF 中姓名提取正确
+[PASS] PDF 正文包含关键经历
+[PASS] 扫描件样例存在
+[PASS] 扫描件被识别并给出处理建议
+[PASS] 旧版 doc 有友好提示
+[PASS] 删除岗位返回 204
+[PASS] 岗位删除后结果清空
+
+结果：47 通过，0 失败

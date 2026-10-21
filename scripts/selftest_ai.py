@@ -109,7 +109,7 @@ def main() -> int:
 
     with TestClient(app) as client:
         status = client.get("/api/status").json()
-        check("状态显示已连接大模型", status["mode"] == "deepseek" and status["configured"], status)
+        check("状态仅表示已配置大模型", status["mode"] == "deepseek" and status["configured"] and "已配置" in status["message"], status)
 
         jd_text = (ROOT / "samples" / "jd_ai_engineer.md").read_text(encoding="utf-8")
         parsed = client.post("/api/parse-jd", json={"jd_text": jd_text}).json()
@@ -141,17 +141,17 @@ def main() -> int:
         results = client.get(f"/api/jobs/{job['id']}/results").json()
         result = results[0]
         check("结果标记为 deepseek 模式", result["mode"] == "deepseek", result["mode"])
-        check("分数来自模型", result["score"] == 88, result["score"])
-        check("结论来自模型", result["verdict"] == "advance", result["verdict"])
-        check("匹配项带证据", result["matched"][0]["evidence"] == "8 年后端开发经验", result["matched"][0])
+        check("虚假证据触发保守分数", result["score"] <= 74, result["score"])
+        check("虚假证据不保留推荐", result["verdict"] == "hold", result["verdict"])
+        check("匹配项带完整原文证据", any(m["evidence"] == "基于 FastAPI + PostgreSQL 搭建服务" for m in result["matched"]), result["matched"])
         check("待确认项被保留", result["uncertain"][0]["reason"] == "简历未提及带团队规模", result["uncertain"])
-        check("编造的证据被拦截", len(result["matched"]) == 2, result["matched"])
+        check("编造的证据被拦截", all(m["requirement"] != "团队管理经验" for m in result["matched"]), result["matched"])
         check(
             "被拦截的条目降级为待确认",
             any(u["requirement"] == "团队管理经验" for u in result["uncertain"]),
             result["uncertain"],
         )
-        check("档案字段归一化", result["profile"]["years_of_experience"] == 8.0, result["profile"])
+        check("档案包含统一年限依据", result["profile"]["stated_years"] == 8.0 and bool(result["profile"]["evaluated_on"]), result["profile"])
 
         # 降级：把地址指向一个关闭的端口，应回退规则引擎且不中断
         config.DEEPSEEK_BASE_URL = "http://127.0.0.1:1"

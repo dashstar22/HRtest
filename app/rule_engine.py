@@ -8,6 +8,8 @@ from __future__ import annotations
 
 import re
 
+from . import policies
+
 # 技能别名表：值统一小写，用于大小写无关的子串匹配。
 SKILL_ALIASES: dict[str, list[str]] = {
     "python": ["python"],
@@ -93,6 +95,9 @@ def find_skills(text: str) -> list[str]:
 
 def match_skill(requirement: str, text: str) -> bool:
     """判断岗位要求里的某一项技能是否出现在简历中。"""
+    parts = policies.alternatives(requirement)
+    if len(parts) > 1:
+        return any(match_skill(part, text) for part in parts)
     normalized = _squash(requirement)
     if not normalized:
         return False
@@ -133,13 +138,22 @@ def evidence_for(text: str, keyword: str, limit: int = 40) -> str:
             cleaned = sentence.strip(" 　|")
             if not cleaned:
                 continue
-            return cleaned if len(cleaned) <= limit else cleaned[:limit] + "…"
+            return cleaned[:limit]
     return ""
 
 
 def first_evidence(text: str, candidates: list[str], limit: int = 40) -> str:
     for candidate in candidates:
         found = evidence_for(text, candidate, limit)
+        if found:
+            return found
+    return ""
+
+
+def skill_evidence(text: str, requirement: str) -> str:
+    for part in policies.alternatives(requirement):
+        aliases = SKILL_ALIASES.get(_squash(part), [part])
+        found = first_evidence(text, aliases)
         if found:
             return found
     return ""
@@ -160,7 +174,8 @@ def analyze(job: dict, resume_name: str, text: str) -> dict:
     needed_years = float(job.get("min_years") or 0)
 
     degree = extract_degree(text)
-    years = extract_years(text)
+    facts = policies.experience_facts(text)
+    years = facts["years_of_experience"]
     title = extract_title(text)
     matched: list[dict] = []
     uncertain: list[dict] = []
@@ -175,6 +190,7 @@ def analyze(job: dict, resume_name: str, text: str) -> dict:
         need_level = DEGREE_LEVEL.get(needed_degree, 0)
         have_level = _degree_level(degree)
         if have_level < 0:
+            hard_failures += 1
             score -= 10
             uncertain.append(
                 {"requirement": f"学历要求：{needed_degree}及以上", "reason": "简历中未写明学历"}
@@ -194,9 +210,10 @@ def analyze(job: dict, resume_name: str, text: str) -> dict:
     # --- 经验年限 ---
     if needed_years > 0:
         if years is None:
+            hard_failures += 1
             score -= 8
             uncertain.append(
-                {"requirement": f"相关经验 {needed_years:g} 年以上", "reason": "简历未量化工作年限"}
+                {"requirement": f"相关经验 {needed_years:g} 年以上", "reason": facts["experience_basis"]}
             )
         elif years < needed_years:
             score -= 20
@@ -219,7 +236,7 @@ def analyze(job: dict, resume_name: str, text: str) -> dict:
             matched.append(
                 {
                     "requirement": f"必备技能：{skill}",
-                    "evidence": evidence_for(text, skill) or f"简历中出现 {skill}",
+                    "evidence": skill_evidence(text, skill),
                 }
             )
         else:
@@ -230,8 +247,7 @@ def analyze(job: dict, resume_name: str, text: str) -> dict:
         missing = len(required_skills) - skill_hits
         if missing:
             score -= min(12 * missing, 40)
-            if missing >= max(2, len(required_skills) / 2):
-                hard_failures += 1
+            hard_failures += 1
             risks.append(f"缺少必备技能描述：{missing}/{len(required_skills)} 项")
 
     # --- 加分项 ---
@@ -255,18 +271,21 @@ def analyze(job: dict, resume_name: str, text: str) -> dict:
     score = max(0, min(100, int(round(score))))
     # 与提示词中的判定口径保持一致：75 分以上且无硬性条件缺口才建议复核
     verdict = "advance" if score >= 75 and hard_failures == 0 else "hold"
+    if verdict == "hold":
+        score = min(score, 74)
 
     profile = {
         "current_title": title,
         "years_of_experience": years,
         "highest_degree": degree,
         "key_skills": detected[:8],
+        **facts,
     }
 
     if verdict == "advance":
         summary = f"规则初筛得分 {score} 分：硬性条件基本满足，建议人工复核其经历真实性。"
     elif hard_failures:
-        summary = f"规则初筛得分 {score} 分：存在 {hard_failures} 项硬性条件不满足，建议暂缓。"
+        summary = f"规则初筛得分 {score} 分：存在 {hard_failures} 类硬性条件不足或待确认，建议暂缓并核实。"
     else:
         summary = f"规则初筛得分 {score} 分：部分必备技能未覆盖或信息不足，建议暂缓并补充核实。"
 
@@ -330,7 +349,7 @@ def parse_jd(jd_text: str) -> dict:
     # 按行判断技能属于「必备」还是「加分」：带「优先/加分」字样的行归入加分项。
     required: list[str] = []
     nice: list[str] = []
-    for line in requirement_section(jd_text).splitlines():
+    for line in re.split(r"[\n。；;]", requirement_section(jd_text)):
         hits = find_skills(line)
         if not hits:
             continue
@@ -348,6 +367,6 @@ def parse_jd(jd_text: str) -> dict:
         "department": department,
         "degree": degree,
         "min_years": years,
-        "required_skills": required[:10],
-        "nice_skills": nice[:10],
+        "required_skills": policies.group_alternatives(required, jd_text)[:10],
+        "nice_skills": policies.group_alternatives(nice, jd_text)[:10],
     }

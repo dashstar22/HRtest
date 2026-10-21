@@ -1,0 +1,19 @@
+D:\code\ai_study\HRtest\.venv\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  from starlette.testclient import TestClient as TestClient  # noqa
+[PASS] 状态仅表示已配置大模型
+[PASS] AI 解析 JD 走模型返回
+[PASS] 上传成功
+[PASS] AI 筛选成功
+[PASS] 结果标记为 deepseek 模式
+[PASS] 虚假证据触发保守分数
+[PASS] 虚假证据不保留推荐
+[PASS] 匹配项带完整原文证据
+[PASS] 待确认项被保留
+[PASS] 编造的证据被拦截
+[PASS] 被拦截的条目降级为待确认
+[PASS] 档案包含统一年限依据
+[PASS] 接口异常时仍返回成功
+[PASS] 降级结果为 rule-fallback
+[PASS] 降级后仍有分数
+
+结果：15 通过，0 失败

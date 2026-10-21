@@ -258,6 +258,14 @@ select { cursor: pointer; }
 .danger-btn { color: #94a3b8; }
 .danger-btn:hover:not(:disabled) { color: var(--red); border-color: #fca5a5; background: var(--red-soft); }
 
+/* 筛选进行中：禁止会改变简历集合的操作，避免写入结果时简历已不存在 */
+body.busy .del,
+body.busy .decide-btn,
+body.busy #dropzone {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 .warn-text { color: var(--amber); }
 
 /* -------------------------------------------------------------- dropzone */
@@ -327,7 +335,7 @@ select { cursor: pointer; }
 }
 .segmented button.active { background: #fff; color: var(--primary); box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12); }
 
-.stat-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
+.stat-row { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
 
 @media (max-width: 1200px) {
   .stat-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }

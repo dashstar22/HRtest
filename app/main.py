@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 import csv
 import io
+import sqlite3
 import uuid
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -74,7 +75,7 @@ def status() -> dict:
             "model": config.DEEPSEEK_MODEL,
             "base_url": config.DEEPSEEK_BASE_URL,
             "configured": True,
-            "message": f"已连接 {config.DEEPSEEK_MODEL}，由大模型完成语义匹配",
+            "message": f"已配置 {config.DEEPSEEK_MODEL}；实际可用性以筛选调用结果为准",
         }
     return {
         "mode": "rule",
@@ -225,22 +226,29 @@ async def screen(job_id: str, payload: ScreenRequest | None = None) -> dict:
             except Exception as exc:
                 return None, f"{resume['file_name']}：{exc}"
 
-        db.save_result(
-            {
-                "id": uuid.uuid4().hex[:12],
-                "job_id": job_id,
-                "resume_id": resume["id"],
-                "score": result["score"],
-                "verdict": result["verdict"],
-                "summary": result["summary"],
-                "matched": result["matched"],
-                "uncertain": result["uncertain"],
-                "strengths": result["strengths"],
-                "risks": result["risks"],
-                "profile": result["profile"],
-                "mode": result["mode"],
-            }
-        )
+            # 分析耗时数秒，期间简历可能被删除；写结果失败不能让整批 500
+            try:
+                db.save_result(
+                    {
+                        "id": uuid.uuid4().hex[:12],
+                        "job_id": job_id,
+                        "resume_id": resume["id"],
+                        "score": result["score"],
+                        "verdict": result["verdict"],
+                        "summary": result["summary"],
+                        "matched": result["matched"],
+                        "uncertain": result["uncertain"],
+                        "strengths": result["strengths"],
+                        "risks": result["risks"],
+                        "profile": result["profile"],
+                        "mode": result["mode"],
+                    }
+                )
+            except sqlite3.IntegrityError:
+                return None, f"{resume['file_name']}：筛选过程中简历或岗位已被删除，已跳过"
+            except Exception as exc:
+                return None, f"{resume['file_name']}：保存结果失败（{exc}）"
+
         return result, None
 
     outcomes = await asyncio.gather(*(run_one(r) for r in resumes))
@@ -318,6 +326,7 @@ def export_csv(job_id: str) -> Response:
             "候选人", "简历文件", "匹配分", "建议", "人工决策", "人工备注", "标注时分数",
             "上次分数", "分数变化", "建议是否变化", "当前职位", "最高学历", "相关年限",
             "核心技能", "结论摘要", "符合条件", "待确认条件", "优势", "风险",
+            "评估日期", "年限依据", "年限口径冲突", "一致性提醒",
         ]
     )
     for r in results:
@@ -352,6 +361,10 @@ def export_csv(job_id: str) -> Response:
                 "；".join(f"{u['requirement']}（{u['reason']}）" for u in r["uncertain"]),
                 "；".join(r["strengths"]),
                 "；".join(r["risks"]),
+                profile.get("evaluated_on", ""),
+                profile.get("experience_basis", ""),
+                "是" if profile.get("experience_conflict") else "否",
+                "；".join(profile.get("review_warnings") or []),
             ]
         )
 

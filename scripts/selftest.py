@@ -184,7 +184,8 @@ def main() -> int:
                 "jd_text": jd_text,
                 "degree": parsed["degree"],
                 "min_years": 8,
-                "required_skills": parsed["required_skills"],
+                # 日期冲突时年限已保守封顶；增加明确未覆盖技能来验证变化追踪。
+                "required_skills": parsed["required_skills"] + ["测试缺失技能A", "测试缺失技能B", "测试缺失技能C"],
                 "nice_skills": parsed["nice_skills"],
             },
         )

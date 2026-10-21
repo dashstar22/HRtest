@@ -1,0 +1,3 @@
+Restart row comparison passed.
+20deea92867f47b2ed3d50783941aeee34daba77130cf82dea82330e5e033362
+1 job / 4 resumes / 4 results; all stored rows identical.

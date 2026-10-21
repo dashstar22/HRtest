@@ -1,0 +1,6 @@
+岗位名称：Python 后端工程师
+用人部门：研发部
+岗位职责：开发和维护后端接口。
+任职要求：本科及以上学历，3年以上后端开发经验。
+必备技能：Python、FastAPI或Django、PostgreSQL或MySQL。
+Redis为加分项。

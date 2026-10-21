@@ -59,6 +59,12 @@ class CandidateProfile(BaseModel):
     years_of_experience: float | None = None
     highest_degree: str = ""
     key_skills: list[str] = Field(default_factory=list)
+    evaluated_on: str = ""
+    stated_years: float | None = None
+    calculated_work_years: float | None = None
+    experience_conflict: bool = False
+    experience_basis: str = ""
+    review_warnings: list[str] = Field(default_factory=list)
 
 
 class ScreeningResult(BaseModel):
@@ -140,6 +146,7 @@ class AIStatus(BaseModel):
 
 class Stats(BaseModel):
     total: int
+    screened: int = 0
     advance: int
     hold: int
     avg_score: float

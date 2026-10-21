@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import json
+from . import policies
+
 SYSTEM_PROMPT = """你是一位有十年经验的资深招聘专家，同时是严谨的简历事实核查员。
 
 铁律：
@@ -40,9 +43,10 @@ OUTPUT_CONTRACT = """【输出 JSON 契约】
 }"""
 
 
-def build_analysis_messages(job: dict, resume_name: str, resume_text: str) -> list[dict]:
+def build_analysis_messages(job: dict, resume_name: str, resume_text: str, facts: dict | None = None) -> list[dict]:
     required = "、".join(job.get("required_skills") or []) or "未单独列出"
     nice = "、".join(job.get("nice_skills") or []) or "未单独列出"
+    facts = facts or policies.experience_facts(resume_text)
 
     user_prompt = f"""请评估下面这位候选人与岗位的匹配程度，并按要求输出 JSON。
 
@@ -52,6 +56,12 @@ def build_analysis_messages(job: dict, resume_name: str, resume_text: str) -> li
 【最低相关经验年限】{job.get('min_years') or 0} 年
 【必备技能】{required}
 【加分项】{nice}
+【条件优先级】以上已保存的结构化条件是HR最终确认的筛选标准，与原JD冲突时以上述条件为准。
+技能标签中“或”表示满足任意一个即可，不要把未选择的另一个分支列为缺失或待确认；不同标签之间为同时要求。
+原JD仅作职责与语境参考，不得恢复HR已删除或修改的硬条件。
+【统一年限依据】{json.dumps(facts, ensure_ascii=False)}
+不要自行重新计算年限。years_of_experience使用上述同名字段；有冲突或为null时，年限条件必须待确认，不得判为符合。
+日期区间总长不保证全部与岗位相关；原文自述只是候选人声明，仍需人工核实。
 
 【岗位 JD 全文】
 {job['jd_text']}
@@ -84,7 +94,7 @@ JD_OUTPUT_CONTRACT = """【输出 JSON 契约】
   "department": "用人部门，未写明填空字符串",
   "degree": "不限 / 大专 / 本科 / 硕士 / 博士（取 JD 中明确的最低学历要求，未写明填 不限）",
   "min_years": 数字（JD 写明的最低相关经验年限，未写明填 0）,
-  "required_skills": ["JD 中明确要求必须掌握的技能，最多 10 项"],
+  "required_skills": ["JD 中明确要求必须掌握的技能，最多 10 项；任选要求保留为同一个标签，如 FastAPI 或 Django、PostgreSQL 或 MySQL"],
   "nice_skills": ["JD 中标注为加分/优先/熟悉即可的技能，最多 10 项"]
 }"""
 

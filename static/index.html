@@ -73,6 +73,7 @@
 
         <div class="field">
           <span>必备技能</span>
+          <span class="hint">任选条件用同一标签，如 FastAPI 或 Django；不同标签需同时满足。保存后的条件优先于原 JD。</span>
           <div class="tags" id="requiredTags">
             <input id="requiredInput" type="text" placeholder="输入后按回车，如 Python" />
           </div>
@@ -131,8 +132,12 @@
 
       <div class="stat-row">
         <div class="stat">
-          <span class="stat-label">简历总数</span>
+          <span class="stat-label">上传总数</span>
           <span class="stat-value" id="statTotal">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">已筛选数</span>
+          <span class="stat-value" id="statScreened">0</span>
         </div>
         <div class="stat">
           <span class="stat-label">建议进入复核</span>

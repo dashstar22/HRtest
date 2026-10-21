@@ -1,0 +1,182 @@
+{
+  "job": {
+    "title": "Python 后端工程师",
+    "department": "研发部",
+    "jd_text": "岗位名称：Python 后端工程师\n用人部门：研发部\n岗位职责：开发和维护后端接口。\n任职要求：本科及以上学历，3年以上后端开发经验。\n必备技能：Python、FastAPI或Django、PostgreSQL或MySQL。\nRedis为加分项。",
+    "degree": "本科",
+    "min_years": 20.0,
+    "required_skills": [
+      "Python",
+      "FastAPI 或 Django",
+      "PostgreSQL 或 MySQL"
+    ],
+    "nice_skills": [
+      "Redis"
+    ],
+    "id": "0a8967a507b3",
+    "created_at": "2026-10-21T20:58:24+08:00",
+    "resume_count": 2,
+    "screened_count": 2
+  },
+  "results": [
+    {
+      "id": "eb7a83b0c0c7",
+      "job_id": "0a8967a507b3",
+      "resume_id": "b6dea1473131",
+      "resume_name": "测试乙",
+      "file_name": "resume_测试乙.txt",
+      "score": 65,
+      "verdict": "hold",
+      "summary": "暂缓自动推荐，需人工核实：硬性条件仍有待确认项",
+      "matched": [
+        {
+          "requirement": "本科及以上",
+          "evidence": "学历：本科"
+        },
+        {
+          "requirement": "Python",
+          "evidence": "使用 Python、Django、PostgreSQL 维护业务系统。"
+        },
+        {
+          "requirement": "FastAPI 或 Django",
+          "evidence": "使用 Python、Django、PostgreSQL 维护业务系统。"
+        },
+        {
+          "requirement": "PostgreSQL 或 MySQL",
+          "evidence": "使用 Python、Django、PostgreSQL 维护业务系统。"
+        }
+      ],
+      "uncertain": [
+        {
+          "requirement": "最低相关经验年限 20.0 年",
+          "reason": "自述8年、区间推算约10.25年，口径冲突且远低于20年，需人工确认"
+        },
+        {
+          "requirement": "Redis（加分项）",
+          "reason": "简历未提及该项技能"
+        },
+        {
+          "requirement": "相关经验至少 20 年",
+          "reason": "评估日期 2026-10-21；自述经验：8 年；工作区间合并去重约 10.25 年（不代表均为岗位相关经验）；口径冲突，需人工确认"
+        }
+      ],
+      "strengths": [
+        "技术栈与必备技能高度吻合（Python、Django、PostgreSQL）",
+        "学历满足本科要求",
+        "有长期后端业务系统维护经验"
+      ],
+      "risks": [
+        "经验年限口径冲突且明显低于岗位要求的20年",
+        "未体现Redis等缓存相关加分能力",
+        "简历信息简略，项目深度与职责范围无法核实"
+      ],
+      "profile": {
+        "current_title": "后端工程师",
+        "years_of_experience": null,
+        "highest_degree": "本科",
+        "key_skills": [
+          "Python",
+          "Django",
+          "PostgreSQL"
+        ],
+        "evaluated_on": "2026-10-21",
+        "stated_years": 8.0,
+        "calculated_work_years": 10.25,
+        "experience_conflict": true,
+        "experience_basis": "评估日期 2026-10-21；自述经验：8 年；工作区间合并去重约 10.25 年（不代表均为岗位相关经验）；口径冲突，需人工确认",
+        "review_warnings": [
+          "相关经验不足、缺失或口径冲突",
+          "硬性条件仍有待确认项"
+        ]
+      },
+      "mode": "deepseek",
+      "created_at": "2026-10-21T21:02:30+08:00",
+      "decision": null,
+      "decision_at": null,
+      "decision_score": null,
+      "decision_note": null,
+      "previous_score": 70,
+      "previous_verdict": "hold",
+      "stale": false
+    },
+    {
+      "id": "55501ed5bf40",
+      "job_id": "0a8967a507b3",
+      "resume_id": "d802c94d7c35",
+      "resume_name": "测试甲",
+      "file_name": "resume_测试甲.txt",
+      "score": 62,
+      "verdict": "hold",
+      "summary": "暂缓自动推荐，需人工核实：硬性条件仍有待确认项",
+      "matched": [
+        {
+          "requirement": "本科及以上学历",
+          "evidence": "2019.09 - 2023.06 某大学 软件工程 本科"
+        },
+        {
+          "requirement": "Python",
+          "evidence": "使用 Python 和 FastAPI 开发订单接口。"
+        },
+        {
+          "requirement": "FastAPI 或 Django",
+          "evidence": "使用 Python 和 FastAPI 开发订单接口。"
+        },
+        {
+          "requirement": "PostgreSQL 或 MySQL",
+          "evidence": "使用 MySQL 保存订单并编写查询。"
+        },
+        {
+          "requirement": "Redis（加分项）",
+          "evidence": "使用 Redis 缓存商品信息。"
+        }
+      ],
+      "uncertain": [
+        {
+          "requirement": "最低相关经验年限 20.0 年",
+          "reason": "简历自述3年后端开发经验，与岗位要求的20年差距明显，属于硬性条件不满足而非信息缺失"
+        },
+        {
+          "requirement": "相关经验至少 20 年",
+          "reason": "自述 3 年，低于已保存要求 20 年"
+        }
+      ],
+      "strengths": [
+        "技术栈与岗位必备技能高度吻合，Python、FastAPI、MySQL 均有实际项目使用记录",
+        "具备 Redis 缓存实践经验，符合加分项"
+      ],
+      "risks": [
+        "相关经验仅约3年，远低于岗位要求的20年，硬性年限条件不满足",
+        "工作经历仅一段，深度与复杂度难以评估"
+      ],
+      "profile": {
+        "current_title": "Python 后端工程师",
+        "years_of_experience": 3.0,
+        "highest_degree": "本科",
+        "key_skills": [
+          "Python",
+          "FastAPI",
+          "MySQL",
+          "Redis"
+        ],
+        "evaluated_on": "2026-10-21",
+        "stated_years": 3.0,
+        "calculated_work_years": 3.0,
+        "experience_conflict": false,
+        "experience_basis": "评估日期 2026-10-21；自述经验：3 年；工作区间合并去重约 3 年（不代表均为岗位相关经验）；以明确自述为初筛依据，需人工核实相关性",
+        "review_warnings": [
+          "相关经验不足、缺失或口径冲突",
+          "硬性条件仍有待确认项"
+        ]
+      },
+      "mode": "deepseek",
+      "created_at": "2026-10-21T21:02:30+08:00",
+      "decision": "accepted",
+      "decision_at": "2026-10-21T21:02:09+08:00",
+      "decision_score": 74,
+      "decision_note": "修复验收：已人工核实，备注必须在重筛后保留。",
+      "previous_score": 74,
+      "previous_verdict": "hold",
+      "stale": false
+    }
+  ]
+}
